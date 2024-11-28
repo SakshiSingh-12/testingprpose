@@ -1,0 +1,33 @@
+<!-- public/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./login.css">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+            <p><a href="#" id="forgot-password">Forgot Password?</a></p>
+        </form>
+        <!-- Modal for OTP and New Password -->
+    <div id="otp-popup" style="display:none;">
+        <h2>Forgot Password</h2>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <button id="send-otp">Send OTP</button>
+        <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
+        <input type="password" id="new-password" placeholder="New Password" style="display:none;">
+        <input type="password" id="confirm-password" placeholder="Confirm Password" style="display:none;">
+        <button id="update-password" style="display:none;">Update Password</button>
+        <button class="close">Close</button>
+    </div>
+    </div>
+    <script src="./login.js"></script>
+</body>
+</html>

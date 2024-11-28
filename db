@@ -1,0 +1,101 @@
+-- Database
+USE Elektrolabs_admin_page;
+-- change user and password according to yours in server.js file
+
+-- Create admin_project_files table
+CREATE TABLE admin_project_files (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  project_id INT NOT NULL,
+  file_name VARCHAR(255) NOT NULL,
+  file_data LONGBLOB NOT NULL,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create admin_image table
+CREATE TABLE admin_image (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  image LONGBLOB NOT NULL
+);
+
+-- Create adminprojects table
+CREATE TABLE adminprojects (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  tender_id VARCHAR(50) NOT NULL,
+  tender_name VARCHAR(255) NOT NULL,
+  tender_portal VARCHAR(255) NOT NULL,
+  tia VARCHAR(255) NOT NULL,
+  tender_addition_date DATE NOT NULL,
+  remark VARCHAR(500),
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  tender_documents TEXT,
+  status VARCHAR(255)
+);
+
+-- Create change_admin_password table
+CREATE TABLE change_admin_password (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  otp VARCHAR(10),
+  otp_expires DATETIME
+);
+
+-- initially username is Sakshi create according to your
+
+-- Create messages table
+CREATE TABLE messages (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  image LONGBLOB,
+  image_data BLOB
+);
+
+-- Create employees table
+CREATE TABLE employees (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  employee_id VARCHAR(50) NOT NULL UNIQUE,
+  name VARCHAR(100) NOT NULL,
+  date_of_joining DATE,
+  mobile_number VARCHAR(15),
+  email VARCHAR(100),
+  designation VARCHAR(50),
+  profile_photo LONGBLOB
+);
+
+-- Create notices table
+CREATE TABLE notices (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  addedDate DATE,
+  titleName VARCHAR(255),
+  fromDate DATE,
+  toDate DATE,
+  documents JSON,
+  noticeMessage TEXT
+);
+
+-- Create project_roles table
+CREATE TABLE project_roles (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  project_id INT NOT NULL,
+  employee_id VARCHAR(255) NOT NULL,
+  employee_name VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL
+);
+
+-- Create roles_assigned table
+CREATE TABLE roles_assigned (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  project_id INT NOT NULL,
+  employee_id VARCHAR(50) NOT NULL,
+  role VARCHAR(255) NOT NULL,
+  status VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  employee_name VARCHAR(255) NOT NULL
+);

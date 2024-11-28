@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>ELEKTRO LABS - Project Management Dashboard UI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <link rel="stylesheet" href="./admin.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="app-container">
+  <div class="app-header">
+    <div class="app-header-left">
+      <span class="company-icon">
+        <img src="/image/elektrologonobg1.png" alt="company logo" height="30px" width="30px">
+      </span>
+      <p class="app-name">ELEKTRO <span class="red">LABS</span></p>
+      <div class="search-wrapper">
+        <input class="search-input" title="Search project here" type="text" placeholder="Search">
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+    <div class="app-header-right">
+      <button class="mode-switch" title="Switch Theme">
+        <i class="fas fa-moon"></i>
+      </button>
+      <!-- add new project -->
+      <button class="add-btn" title="Add New Project">
+        <i class="fas fa-plus"></i>
+      </button>
+      <!-- <button class="notification-btn">
+        <i class="fas fa-bell"></i>
+      </button> -->
+      <button class="profile-btn">
+        <img src="/image/sakshis.jpg" />
+        <span>SAKSHI</span>
+      </button>
+    </div>
+    <button class="messages-btn">
+      <i class="fas fa-comment"></i>
+    </button>
+  </div>
+  <div class="app-content">
+    <div class="app-sidebar">
+      
+       <!-- ********************** -->
+      <a href="" class="app-sidebar-link active" id="Home-bar" title="Home">
+        <i class="fas fa-home"></i>
+      </a>
+
+       <a href="#" class="app-sidebar-link" id="employeeMenu" title="Add New Employee">
+        <i class="fas fa-user-plus"></i>
+      </a>
+
+      <a href="#" class="app-sidebar-link" id="notice-bar" title="Notice">
+        <i class="fas fa-bell"></i>
+      </a>
+
+      <a href="#" class="app-sidebar-link" id="logoutBtn" title="Logout">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+
+    </div>
+
+   
+  
+    <!-- project Section -->
+    <div class="projects-section" id="projects-section">
+      <div class="projects-section-header">
+        <p>Projects</p>
+        <p class="time" id="currentDate"></p>
+      </div>
+
+      <!-- Project Details number -->
+      <div class="projects-section-line">
+        <div class="projects-status">
+          <div class="item-status">
+            <span class="status-number" id="in-progress-count">0</span>
+            <span class="status-type">In Progress</span>
+          </div>
+          <div class="item-status">
+            <span class="status-number" id="completed-count">0</span>
+            <span class="status-type">Completed</span>
+          </div>
+          <div class="item-status">
+            <div class="status-number" id="project-count"><span id="total-projects">0</span></div>
+            <span class="status-type">Total Projects</span>
+          </div>
+        </div>
+        <div class="view-actions">
+          <button class="view-btn list-view" title="List View">
+            <i class="fas fa-th-list"></i>
+          </button>
+          <button class="view-btn grid-view active" title="Grid View">
+            <i class="fas fa-th"></i>
+          </button>
+        </div>
+      </div>
+     
+      <!-- Project box -->
+      <div class="project-boxes jsGridView" id="project-boxes"></div>
+
+      <!-- Add Project Modal -->
+      <div id="addProjectModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="close-form-icon">
+            <i class="fas fa-times"></i>
+        </span>
+        
+          <h2>Add New Project</h2>
+          <form id="addProjectForm" enctype="multipart/form-data">
+
+            <label for="tenderId">Tender ID:</label>
+            <input type="text" id="tenderId" name="tenderId" required>
+      
+            <label for="tenderName">Tender Name:</label>
+            <input type="text" id="tenderName" name="tenderName" required>
+      
+            <label for="tenderPortal">Tender Portal:</label>
+            <select id="tenderPortal" name="tenderPortal" required>
+              <option value="GFM">GFM</option>
+              <option value="CPPD">CPPD</option>
+              <option value="OFFLINE">OFFLINE</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+      
+            <label for="tia">TIA:</label>
+            <input type="text" id="tia" name="tia" required>
+      
+            <label for="tenderDocument">Tender Document:</label>
+            <input type="file" id="tenderDocument" name="tenderDocument" multiple required>
+
+      
+            <label for="tenderAdditionDate">Tender Addition Date:</label>
+            <input type="date" id="tenderAdditionDate" name="tenderAdditionDate">
+      
+            <label for="remark">Remark:</label>
+            <textarea id="remark" name="remark"></textarea>
+      
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required>
+      
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required>
+      
+            <!-- Assign Role Section -->
+            <div id="assignRoleSection">
+              <h3>Assign Role</h3>
+              <div id="employeeRoleContainer">
+                <div class="employee-role" id="employee-role">
+                  <label for="employeeId">Employee ID:</label>
+                  <input type="text" id="employeeId" name="employeeId[]" required>
+                  <label for="employeeName">Employee Name:</label>
+                  <input type="text" id="employeeName" name="employeeName[]" required>
+                  <label for="role">Role:</label>
+                  <input type="text" id="role" name="role[]" required>
+                </div>
+              </div>
+              <button type="button" id="addEmployeeRoleBtn">+</button>
+            </div>
+      
+            <button type="submit">Add Project</button>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Project Card Popup Modal -->
+      <div id="projectCardModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Project Details</h2>
+            <div id="projectDetails"></div>
+             <!-- Uploaded Documents Section -->
+            <div id="uploadedDocuments"></div>
+            <div id="assignedEmployees"></div>
+            <button id="updateButton" onclick="openUpdateForm()">Update</button>
+            <button id="removeButton" onclick="confirmRemoveProject()">Remove</button>
+        </div>
+      </div>
+
+      <!-- Update Project Popup Modal -->
+      <div id="updateProjectModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUpdateModal()">&times;</span>
+            <h2>Update Project</h2>
+            <form id="updateProjectForm">
+                <input type="hidden" id="updateProjectId">
+                <label for="updateTenderId">Tender ID:</label>
+                <input type="text" id="updateTenderId" required>
+                <label for="updateTenderName">Tender Name:</label>
+                <input type="text" id="updateTenderName" required>
+                <label for="updateTenderPortal">Tender Portal:</label>
+                <input type="text" id="updateTenderPortal" required>
+                <label for="updateTia">TIA:</label>
+                <input type="text" id="updateTia" required>
+                <label for="updateRemark">Remark:</label>
+                <input type="text" id="updateRemark" required>
+                <label for="updateStartDate">Start Date:</label>
+                <input type="date" id="updateStartDate" required>
+                <label for="updateEndDate">End Date:</label>
+                <input type="date" id="updateEndDate" required>
+
+                <!-- Assign Role Section -->
+                <div id="updateEmployeeRoleContainer">
+                  <h3>Assigned Roles</h3>
+                  <!-- Existing roles will be populated here -->
+                  <div class="employee-role-template">
+                    <label for="updateEmployeeId">Employee ID:</label>
+                    <input type="text" id="updateEmployeeId" name="updateEmployeeId[]" required>
+                    <label for="updateEmployeeName">Employee Name:</label>
+                    <input type="text" id="updateEmployeeName" name="updateEmployeeName[]" required>
+                    <label for="updateRole">Role:</label>
+                    <input type="text" id="updateRole" name="updateRole[]" required>
+                  </div>
+                </div>
+                <button type="button" id="addUpdateEmployeeRoleBtn">+</button>
+
+
+                <button type="submit">Save Updates</button>
+            </form>
+        </div>
+      </div>
+
+    </div>
+
+<!-- Employee -->
+<!-- Employee List (initially hidden) -->
+<div id="employeeList" style="display: none;">
+  <div class="employees-section-header">
+    <p>Employees</p>
+   
+    <button id="addEmployeeBtni"><i class="fas fa-plus"></i></button>
+    
+  </div>
+  <!-- Button to open the "Add Employee" modal -->
+  
+  <!-- Employee cards will be dynamically generated here -->
+</div>
+ <!-- Confirmation Modal -->
+ <div id="confirmationModal" class="modal">
+  <div class="modal-content">
+     <h2>Are you sure?</h2>
+     <button id="confirmYes">Yes</button>
+     <button id="confirmNo">No</button>
+  </div>
+</div>
+
+<!-- Add Employee Modal -->
+<div id="addEmployeeModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Add Employee</h2>
+    <form id="addEmployeeForm" enctype="multipart/form-data">
+      <input type="text" name="employee_id" placeholder="Employee ID" required>
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="date" name="date_of_joining" required>
+      <input type="text" name="mobile_number" placeholder="Mobile Number" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="designation" placeholder="Designation" required>
+      <label for="profile_image">Profile Image:</label>
+      <input type="file" id="profile_image" name="profile_image" accept="image/*" required>
+      <button type="submit">Add Employee</button>
+    </form>
+  </div>
+</div>
+
+<!-- Update Employee Form (Initially Hidden) -->
+<div class="update-form-container" style="display: none;">
+  <div class="update-form">
+    <span class="close-btn">&times;</span>
+    <h3>Edit Employee</h3>
+    <form id="update-employee-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="employee_id">Employee ID:</label>
+      <input type="text" id="employee_id" name="employee_id" required readonly>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="mobile_number">Mobile:</label>
+      <input type="text" id="mobile_number" name="mobile_number" required>
+
+      <label for="designation">Designation:</label>
+      <input type="text" id="designation" name="designation" required>
+
+      <label for="date_of_joining">Date of Joining:</label>
+      <input type="date" id="date_of_joining" name="date_of_joining" required>
+
+      <button type="submit" class="save-btn">Save Update</button>
+    </form>
+  </div>
+</div> 
+
+
+ <!-- ******************************************************* -->
+  
+<!-- Notice section -->
+<div class="notice-container" id="noticeContainer" style="display: none;">
+  <div class="notice-header">
+    <h2>Notice Board</h2>
+    <p class="time" id="currentDate"></p>
+    <i class="fas fa-plus" id="addNoticeIcon"></i>
+  </div>
+
+  <div class="notice-form-container" id="noticeFormContainer" style="display: none;">
+    <form id="noticeForm" action="/upload" method="POST" enctype="multipart/form-data">
+      <label for="addedDate">Added Date:</label>
+      <input type="date" id="addedDate" name="addedDate" required />
+
+      <label for="titleName">Title Name:</label>
+      <input type="text" id="titleName" name="titleName" required />
+
+      <label for="fromDate">From Date:</label>
+      <input type="date" id="fromDate" name="fromDate" required />
+
+      <label for="toDate">To Date:</label>
+      <input type="date" id="toDate" name="toDate" required />
+
+      <label for="documents">Documents:</label>
+      <input type="file" id="documents" name="documents" accept=".jpg,.jpeg,.png,.doc,.docx,.pdf" multiple />
+
+      <label for="noticeMessage">Notice Message:</label>
+      <textarea id="noticeMessage" name="noticeMessage" required></textarea>
+
+      <button type="submit">Add Notice</button>
+      <button type="button" id="closeForm">Close</button>
+    </form>
+  </div>
+
+  <div class="notices-list" id="noticesList"></div>
+</div>
+
+
+<!-- Message Section -->
+<div class="messages-section">
+  <button class="messages-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="projects-section-header">
+    <p>Chats</p>
+  </div>
+  <div class="messages" id="messages-container">
+    <!-- Dynamic message boxes will appear here -->
+  </div>
+  
+  <div class="message-input-container">
+    <input type="text" id="message-input" placeholder="Type your message here...">
+    <button id="send-message-btn">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+  <!-- *********************** -->
+   <!-- *********************done -->
+   
+</div>
+
+
+
+</div>
+
+
+
+ 
+<script src="./admin.js"></script>
+
+</body>
+</html>
